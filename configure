@@ -1,0 +1,36 @@
+#!/bin/sh
+ac_servr=(ac1 ac2 ac3 ac4 ac5)
+ob_servr=(ob1 ob2 ob3 ob4 ob5 ob6 ob7 ob8 ob9 ob10)
+pro_servr=(pro1 pro2 pro3)
+# Account & Container Configuration
+for ((i=0; i<=4; i++))
+do
+scp account_config ${ac_servr[i]}:/root/
+ssh ${ac_servr[i]} chmod +x /root/account_config
+ssh ${ac_servr[i]} sh /root/account_config
+# Rsyncd.conf
+scp rsyncd_conf ${ac_servr[i]}:/root/
+ssh ${ac_servr[i]} chmod +x /root/rsyncd_conf
+ssh ${ac_servr[i]} sh /root/rsyncd_conf
+done
+# Object Configuration
+for ((j=0; j<=10; j++))
+do
+scp object_config ${ob_servr[j]}:/root/
+ssh ${ob_servr[j]} chmod +x /root/object_config
+ssh ${ob_servr[j]} sh /root/object_config
+# Rsyncd.conf
+scp rsyncd_conf ${ob_servr[j]}:/root/
+ssh ${ob_servr[j]} chmod +x /root/rsyncd_conf
+ssh ${ob_servr[j]} sh /root/rsyncd_conf
+done
+# Proxy Configuration
+for ((k=0; k<=2; k++))
+do
+scp proxy_config ${pro_servr[k]}:/root/
+ssh ${pro_servr[k]} chmod +x /root/proxy_config
+ssh ${pro_servr[k]} sh /root/proxy_config
+done
+
+
+

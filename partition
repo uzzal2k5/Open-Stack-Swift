@@ -1,0 +1,33 @@
+#!/bin/sh
+# Create user swift
+adduser swift
+#
+mkdir -p /srv/node/disk1
+mkdir -p /srv/node/disk2
+mkdir -p /srv/node/disk3
+mkdir -p /srv/node/disk4
+mkdir -p /srv/node/disk5
+chown -R swift:swift /srv/node
+# Storage drive formatted and mount 
+#
+mkfs.xfs -f -L disk1 /dev/vdb
+mkfs.xfs -f -L disk2 /dev/vdc
+mkfs.xfs -f -L disk3 /dev/vdd
+mkfs.xfs -f -L disk4 /dev/vde
+mkfs.xfs -f -L disk5 /dev/vdf
+#
+drive_mount='
+mount -t xfs -o noatime,nodiratime,logbufs=8 -L disk1 /srv/node/disk1
+mount -t xfs -o noatime,nodiratime,logbufs=8 -L disk2 /srv/node/disk2
+mount -t xfs -o noatime,nodiratime,logbufs=8 -L disk3 /srv/node/disk3
+mount -t xfs -o noatime,nodiratime,logbufs=8 -L disk4 /srv/node/disk4
+mount -t xfs -o noatime,nodiratime,logbufs=8 -L disk5 /srv/node/disk5
+'
+${drive_mount}
+# Configure for auto mount after reboot
+cd /etc/rc.d/
+echo "$drive_mount">>rc.local
+chmod +x rc.local
+
+
+

@@ -1,0 +1,53 @@
+#!/bin/sh
+# Download Configuration file into /etc/swift
+ac_servr=(ac1 ac2 ac3 ac4 ac5)
+ob_servr=(ob1 ob2 ob3 ob4 ob5 ob6 ob7 ob8 ob9 ob10)
+pro_servr=(pro1 pro2 pro3)
+for ((i=0; i<=4; i++))
+do
+# Download account & container configuration files
+curl_command_ac='curl -o /etc/swift/account-server.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/account-server.conf-sample?h=stable/kilo
+curl -o /etc/swift/container-server.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/container-server.conf-sample?h=stable/kilo
+curl -o /etc/swift/container-reconciler.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/container-reconciler.conf-sample?h=stable/kilo
+curl -o /etc/swift/container-sync-realms.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/container-sync-realms.conf-sample?h=stable/kilo
+curl -o /etc/swift/dispersion.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/dispersion.conf-sample?h=stable/kilo
+curl -o /etc/swift/drive-audit.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/drive-audit.conf-sample?h=stable/kilo
+curl -o /etc/swift/swift.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/swift.conf-sample?h=stable/kilo
+'
+echo "$curl_command_ac">ac_config
+scp ac_config ${ac_servr[i]}:/root/
+ssh ${ac_servr[i]}  chmod +x /root/ac_config
+ssh ${ac_servr[i]}  sh /root/ac_config
+#ssh ${ac_servr[i]}  chown -R swift:swift /etc/swift
+done
+
+for ((j=0; j<=10; j++))
+do
+# Download Object Configuration files
+curl_command_obj='curl -o /etc/swift/object-server.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/object-server.conf-sample?h=stable/kilo
+curl -o /etc/swift/object-expirer.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/object-expirer.conf-sample?h=stable/kilo
+curl -o /etc/swift/dispersion.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/dispersion.conf-sample?h=stable/kilo
+curl -o /etc/swift/drive-audit.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/drive-audit.conf-sample?h=stable/kilo
+curl -o /etc/swift/swift.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/swift.conf-sample?h=stable/kilo
+'
+echo "$curl_command_obj">obj_config
+scp obj_config ${ob_servr[j]}:/root/
+ssh ${ob_servr[j]}  chmod +x /root/obj_config
+ssh ${ob_servr[j]}  sh /root/obj_config
+#ssh ${ob_servr[j]}  chown -R swift:swift /etc/swift
+done
+
+for ((k=0; k<=2; k++))
+do
+# Download Proxy Configuration files
+curl_command_pro='curl -o /etc/swift/proxy-server.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/proxy-server.conf-sample?h=stable/kilo
+curl -o /etc/swift/memcache.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/memcache.conf-sample?h=stable/kilo
+curl -o /etc/swift/swift.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/swift.conf-sample?h=stable/kilo
+'
+echo "$curl_command_pro">pro_config
+scp pro_config ${pro_servr[k]}:/root/
+ssh ${pro_servr[k]}  chmod +x /root/pro_config
+ssh ${pro_servr[k]}  sh /root/pro_config
+#ssh ${pro_servr[k]}  chown -R swift:swift /etc/swift
+done
+

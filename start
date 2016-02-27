@@ -1,0 +1,35 @@
+#!/bin/sh
+# Finalize  & Start All Configuration
+# Total server 18 [5 account container, 10 object & 3 Proxy]
+# Server Array
+servr=(ac1 ac2 ac3 ac4 ac5 ob1 ob2 ob3 ob4 ob5 ob6 ob7 ob8 ob9 ob10 pro1 pro2 pro3)
+
+# Enable & Start Account & Container
+for(( a=0; a<=4; a++ ))
+do
+ssh ${servr[a]} systemctl enable rsyncd.service
+ssh ${servr[a]} systemctl start rsyncd.service
+ssh ${servr[a]} systemctl enable openstack-swift-account.service openstack-swift-account-auditor.service openstack-swift-account-reaper.service openstack-swift-account-replicator.service
+ssh ${servr[a]} systemctl start openstack-swift-account.service openstack-swift-account-auditor.service openstack-swift-account-reaper.service openstack-swift-account-replicator.service
+ssh ${servr[a]} systemctl enable openstack-swift-container.service openstack-swift-container-auditor.service openstack-swift-container-replicator.service openstack-swift-container-updater.service
+ssh ${servr[a]} systemctl start openstack-swift-container.service openstack-swift-container-auditor.service openstack-swift-container-replicator.service openstack-swift-container-updater.service
+done
+
+# Enable & Start Object Server
+for (( o=5; o<=14; o++ ))
+do
+ssh ${servr[o]} systemctl enable rsyncd.service
+ssh ${servr[o]} systemctl start rsyncd.service 
+ssh ${servr[o]} systemctl enable openstack-swift-object.service openstack-swift-object-auditor.service openstack-swift-object-replicator.service openstack-swift-object-updater.service
+ssh ${servr[o]} systemctl start openstack-swift-object.service openstack-swift-object-auditor.service openstack-swift-object-replicator.service openstack-swift-object-updater.service
+done
+
+# Enable & Start  Porxy Server
+for (( p=15; p<=17; p++ ))
+do
+ssh ${server[p]} systemctl enable openstack-swift-proxy.service memcached.service
+ssh ${servr[p]} systemctl restart openstack-swift-proxy.service memcached.service
+done
+
+echo "Successfull !"
+

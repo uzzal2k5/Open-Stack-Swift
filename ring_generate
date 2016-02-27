@@ -1,0 +1,112 @@
+#!/bin/sh
+#******Zone 1 Start************
+swift-ring-builder account.builder add r1z1-172.16.100.101:6002/disk1 100
+swift-ring-builder container.builder add r1z1-172.16.100.101:6001/disk1 100
+swift-ring-builder object.builder add r1z1-172.16.100.151:6000/disk1 100
+swift-ring-builder object.builder add r1z1-172.16.100.156:6000/disk1 100
+swift-ring-builder account.builder add r1z1-172.16.100.101:6002/disk2 100
+swift-ring-builder container.builder add r1z1-172.16.100.101:6001/disk2 100
+swift-ring-builder object.builder add r1z1-172.16.100.151:6000/disk2 100
+swift-ring-builder object.builder add r1z1-172.16.100.156:6000/disk2 100
+swift-ring-builder account.builder add r1z1-172.16.100.101:6002/disk3 100
+swift-ring-builder container.builder add r1z1-172.16.100.101:6001/disk3 100
+swift-ring-builder object.builder add r1z1-172.16.100.151:6000/disk3 100
+swift-ring-builder object.builder add r1z1-172.16.100.156:6000/disk3 100
+swift-ring-builder account.builder add r1z1-172.16.100.101:6002/disk4 100
+swift-ring-builder container.builder add r1z1-172.16.100.101:6001/disk4 100
+swift-ring-builder object.builder add r1z1-172.16.100.151:6000/disk4 100
+swift-ring-builder object.builder add r1z1-172.16.100.156:6000/disk4 100
+swift-ring-builder account.builder add r1z1-172.16.100.101:6002/disk5 100
+swift-ring-builder container.builder add r1z1-172.16.100.101:6001/disk5 100
+swift-ring-builder object.builder add r1z1-172.16.100.151:6000/disk5 100
+swift-ring-builder object.builder add r1z1-172.16.100.156:6000/disk5 100
+#******Zone 1 End************
+#******Zone 2 Start************
+swift-ring-builder account.builder add r1z2-172.16.100.102:6002/disk1 100
+swift-ring-builder container.builder add r1z2-172.16.100.102:6001/disk1 100
+swift-ring-builder object.builder add r1z2-172.16.100.152:6000/disk1 100
+swift-ring-builder object.builder add r1z2-172.16.100.157:6000/disk1 100
+swift-ring-builder account.builder add r1z2-172.16.100.102:6002/disk2 100
+swift-ring-builder container.builder add r1z2-172.16.100.102:6001/disk2 100
+swift-ring-builder object.builder add r1z2-172.16.100.152:6000/disk2 100
+swift-ring-builder object.builder add r1z2-172.16.100.157:6000/disk2 100
+swift-ring-builder account.builder add r1z2-172.16.100.102:6002/disk3 100
+swift-ring-builder container.builder add r1z2-172.16.100.102:6001/disk3 100
+swift-ring-builder object.builder add r1z2-172.16.100.152:6000/disk3 100
+swift-ring-builder object.builder add r1z2-172.16.100.157:6000/disk3 100
+swift-ring-builder account.builder add r1z2-172.16.100.102:6002/disk4 100
+swift-ring-builder container.builder add r1z2-172.16.100.102:6001/disk4 100
+swift-ring-builder object.builder add r1z2-172.16.100.152:6000/disk4 100
+swift-ring-builder object.builder add r1z2-172.16.100.157:6000/disk4 100
+swift-ring-builder account.builder add r1z2-172.16.100.102:6002/disk5 100
+swift-ring-builder container.builder add r1z2-172.16.100.102:6001/disk5 100
+swift-ring-builder object.builder add r1z2-172.16.100.152:6000/disk5 100
+swift-ring-builder object.builder add r1z2-172.16.100.157:6000/disk5 100
+#******Zone 2 End************
+#******Zone 3 Start************
+swift-ring-builder account.builder add r1z3-172.16.100.103:6002/disk1 100
+swift-ring-builder container.builder add r1z3-172.16.100.103:6001/disk1 100
+swift-ring-builder object.builder add r1z3-172.16.100.153:6000/disk1 100
+swift-ring-builder object.builder add r1z3-172.16.100.158:6000/disk1 100
+swift-ring-builder account.builder add r1z3-172.16.100.103:6002/disk2 100
+
+swift-ring-builder container.builder add r1z3-172.16.100.103:6001/disk2 100
+swift-ring-builder object.builder add r1z3-172.16.100.153:6000/disk2 100
+swift-ring-builder object.builder add r1z3-172.16.100.158:6000/disk2 100
+swift-ring-builder account.builder add r1z3-172.16.100.103:6002/disk3 100
+swift-ring-builder container.builder add r1z3-172.16.100.103:6001/disk3 100
+swift-ring-builder object.builder add r1z3-172.16.100.153:6000/disk3 100
+swift-ring-builder object.builder add r1z3-172.16.100.158:6000/disk3 100
+swift-ring-builder account.builder add r1z3-172.16.100.103:6002/disk4 100
+swift-ring-builder container.builder add r1z3-172.16.100.103:6001/disk4 100
+swift-ring-builder object.builder add r1z3-172.16.100.153:6000/disk4 100
+swift-ring-builder object.builder add r1z3-172.16.100.158:6000/disk4 100
+swift-ring-builder account.builder add r1z3-172.16.100.103:6002/disk5 100
+swift-ring-builder container.builder add r1z3-172.16.100.103:6001/disk5 100
+swift-ring-builder object.builder add r1z3-172.16.100.153:6000/disk5 100
+swift-ring-builder object.builder add r1z3-172.16.100.158:6000/disk5 100
+#******Zone 3 End************
+#******Zone 4 Start************
+swift-ring-builder account.builder add r1z4-172.16.100.104:6002/disk1 100
+swift-ring-builder container.builder add r1z4-172.16.100.104:6001/disk1 100
+swift-ring-builder object.builder add r1z4-172.16.100.154:6000/disk1 100
+swift-ring-builder object.builder add r1z4-172.16.100.159:6000/disk1 100
+swift-ring-builder account.builder add r1z4-172.16.100.104:6002/disk2 100
+swift-ring-builder container.builder add r1z4-172.16.100.104:6001/disk2 100
+swift-ring-builder object.builder add r1z4-172.16.100.154:6000/disk2 100
+swift-ring-builder object.builder add r1z4-172.16.100.159:6000/disk2 100
+swift-ring-builder account.builder add r1z4-172.16.100.104:6002/disk3 100
+swift-ring-builder container.builder add r1z4-172.16.100.104:6001/disk3 100
+swift-ring-builder object.builder add r1z4-172.16.100.154:6000/disk3 100
+swift-ring-builder object.builder add r1z4-172.16.100.159:6000/disk3 100
+swift-ring-builder account.builder add r1z4-172.16.100.104:6002/disk4 100
+swift-ring-builder container.builder add r1z4-172.16.100.104:6001/disk4 100
+swift-ring-builder object.builder add r1z4-172.16.100.154:6000/disk4 100
+swift-ring-builder object.builder add r1z4-172.16.100.159:6000/disk4 100
+swift-ring-builder account.builder add r1z4-172.16.100.104:6002/disk5 100
+swift-ring-builder container.builder add r1z4-172.16.100.104:6001/disk5 100
+swift-ring-builder object.builder add r1z4-172.16.100.154:6000/disk5 100
+swift-ring-builder object.builder add r1z4-172.16.100.159:6000/disk5 100
+#******Zone 4 End************
+#******Zone 5 Start************
+swift-ring-builder account.builder add r1z5-172.16.100.105:6002/disk1 100
+swift-ring-builder container.builder add r1z5-172.16.100.105:6001/disk1 100
+swift-ring-builder object.builder add r1z5-172.16.100.155:6000/disk1 100
+swift-ring-builder object.builder add r1z5-172.16.100.160:6000/disk1 100
+swift-ring-builder account.builder add r1z5-172.16.100.105:6002/disk2 100
+swift-ring-builder container.builder add r1z5-172.16.100.105:6001/disk2 100
+swift-ring-builder object.builder add r1z5-172.16.100.155:6000/disk2 100
+swift-ring-builder object.builder add r1z5-172.16.100.160:6000/disk2 100
+swift-ring-builder account.builder add r1z5-172.16.100.105:6002/disk3 100
+swift-ring-builder container.builder add r1z5-172.16.100.105:6001/disk3 100
+swift-ring-builder object.builder add r1z5-172.16.100.155:6000/disk3 100
+swift-ring-builder object.builder add r1z5-172.16.100.160:6000/disk3 100
+swift-ring-builder account.builder add r1z5-172.16.100.105:6002/disk4 100
+swift-ring-builder container.builder add r1z5-172.16.100.105:6001/disk4 100
+swift-ring-builder object.builder add r1z5-172.16.100.155:6000/disk4 100
+swift-ring-builder object.builder add r1z5-172.16.100.160:6000/disk4 100
+swift-ring-builder account.builder add r1z5-172.16.100.105:6002/disk5 100
+swift-ring-builder container.builder add r1z5-172.16.100.105:6001/disk5 100
+swift-ring-builder object.builder add r1z5-172.16.100.155:6000/disk5 100
+swift-ring-builder object.builder add r1z5-172.16.100.160:6000/disk5 100
+#******Zone 5 End************

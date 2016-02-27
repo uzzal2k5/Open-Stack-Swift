@@ -1,0 +1,12 @@
+#!/bin/sh
+## Install Object Server
+yum install -y net-tools vim
+yum install -y http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+yum -y update
+yum install -y http://rdo.fedorapeople.org/openstack-kilo/rdo-release-kilo.rpm
+yum install -y openstack-swift-object xfsprogs xinetd rsync
+#
+
+
+
+

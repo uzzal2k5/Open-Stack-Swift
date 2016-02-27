@@ -1,0 +1,10 @@
+#!/bin/sh
+#swift.conf
+cd /etc/swift
+fix=$(head -c 32 /dev/random | base64)
+sfix=$(head -c 32 /dev/random | base64)
+#sed -i 's/changeme/qQf0H25CNzp81+9NY90cGaXTb7QjUX3CivR5+H5IeQw=/g' /etc/swift/swift.conf
+sed -i 's/swift_hash_path_suffix = changeme/swift_hash_path_suffix = '"${sfix}"'/g' /etc/swift/swift.conf
+sed -i 's/swift_hash_path_prefix = changeme/swift_hash_path_prefix = '"${pfix}"'/g' /etc/swift/swift.conf
+#swift_hash_path_suffix = changeme
+#swift_hash_path_prefix = changeme

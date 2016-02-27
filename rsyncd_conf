@@ -1,0 +1,35 @@
+#!/bin/sh
+#rsyncd.conf
+# Account , Container & Object Configure
+eth2_ip=$(ip addr list eth2 |grep "inet " |cut -d' ' -f6|cut -d/ -f1)
+rsyncd_config1='uid = swift
+gid = swift
+log file = /var/log/rsyncd.log
+pid file = /var/run/rsyncd.pid
+address = '"${eth2_ip}"
+rsyncd_config2='
+[account]
+max connections = 2
+path = /srv/node/
+read only = false
+lock file = /var/lock/account.lock
+ 
+[container]
+max connections = 2
+path = /srv/node/
+read only = false
+lock file = /var/lock/container.lock
+ 
+[object]
+max connections = 2
+path = /srv/node/
+read only = false
+lock file = /var/lock/object.lock
+'
+#sed -i 's/disable = yes/disable = no/g' /etc/xinetd.d/rsync
+echo "$rsyncd_config1">/etc/rsyncd.conf
+echo "$rsyncd_config2">>/etc/rsyncd.conf
+# Enable rsync
+touch /etc/xinetd.d/rsync
+echo 'disable = no' >> /etc/xinetd.d/rsync
+systemctl start xinetd

@@ -1,0 +1,30 @@
+#!/bin/sh
+# Proxy Configuration
+# Get IP Address in ip variable
+ip=$(ip addr list eth1 |grep "inet " |cut -d' ' -f6|cut -d/ -f1)
+#/etc/swift/proxy-server.conf
+
+# bind_ip = 0.0.0.0
+sed -i 's/# bind_ip = 0.0.0.0/bind_ip = '"${ip}"'/g' /etc/swift/proxy-server.conf
+sed -i 's/# swift_dir = /etc/swift/swift_dir = /etc/swift/g' /etc/swift/proxy-server.conf
+sed -i 's/# user = swift/user = swift/g' /etc/swift/proxy-server.conf
+sed -i 's/# allow_account_management = false/allow_account_management = true/g' /etc/swift/proxy-server.conf
+sed -i 's/# account_autocreate = false/account_autocreate = true/g' /etc/swift/proxy-server.conf
+# Using Multiple Memcached server [Usually 3 proxy server are userd as memcached server here]
+# 172.16.100.101 - pro1
+# 172.16.100.102 - pro2
+# 172.16.100.103 - pro3
+sed -i 's/# memcache_servers = 127.0.0.1:11211/# memcache_servers = 172.16.100.101:11211,172.16.100.102:11211,172.16.100.103:11211/g' /etc/swift/proxy-server.conf
+
+swift_auth_toke='
+[filter:authtoken]
+# paste.filter_factory = keystonemiddleware.auth_token:filter_factory
+# identity_uri = http://keystonehost:35357/
+# auth_uri = http://keystonehost:5000/
+admin_tenant_name = service
+admin_user = swift
+admin_password = admin
+delay_auth_decision = true
+'
+echo "$swift_auth_token">> /etc/swift/proxy-server.conf
+

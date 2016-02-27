@@ -1,0 +1,13 @@
+#!/bin/sh
+# Set Permission where require
+#
+mkdir -p /var/cache/swift
+chown -R swift:swift /var/cache/swift
+#
+mkdir -p /var/log/swift
+chown -R root:adm /var/log/swift
+chmod -R g+w /var/log/swift
+#
+# Create it on ac ob and pro
+mkdir -p /var/swift/recon
+chown -R swift:swift /var/swift/recon

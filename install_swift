@@ -1,0 +1,88 @@
+#!/bin/sh
+# Swift Installation Automatically
+# 18 Node [10 object, 5 Account Container & 3 Proxy]
+# Host name like ac1, ac2...ob1, ob2...pro1, pro2
+servr=(ac1 ac2 ac3 ac4 ac5 ob1 ob2 ob3 ob4 ob5 ob6 ob7 ob8 ob9 ob10 pro1 pro2 pro3)
+cd $(pwd)
+
+# Account Container Install
+for((i=1;i<=5;i++))
+do
+scp account ac${i}:/root/
+ssh ac${i} chmod +x /root/account
+ssh ac${i} sh /root/account
+# Partion and formatting
+scp partition ac${i}:/root/
+ssh ac${i} chmod +x /root/partition
+ssh ac${i} sh /root/partition
+
+# Directory Permission
+scp directory_permission ac${i}:/root/
+ssh ac${i} chmod +x /root/directory_permission
+ssh ac${i} sh /root/directory_permission
+done
+
+# Object Install
+for ((i=1;i<=10;i++))
+do
+scp object ob${i}:/root/
+ssh ob${i} chmod +x /root/object
+ssh ob${i} sh /root/object
+
+# Partition & Formatting
+scp partition ob${i}:/root/
+ssh ob${i} chmod +x /root/partition
+ssh ob${i} sh /root/partition
+
+# Directory Permission
+scp directory_permission ob${i}:/root/
+ssh ob${i} chmod +x /root/directory_permission
+ssh ob${i} sh /root/directory_permission
+done
+
+# Proxy Install
+for ((i=1;i<=3;i++))
+do
+scp proxy pro${i}:/root/
+ssh pro${i} chmod +x /root/proxy
+ssh pro${i} sh /root/proxy
+
+# Directory Permission
+scp directory_permission pro${i}:/root/
+ssh pro${i} chmod +x /root/directory_permission
+ssh pro${i} sh /root/directory_permission
+done
+
+# Download all configuration file into /etc/swift using CURL
+chmod +x curl_config
+sh curl_config
+chmod +x start
+sh start
+chmod +x configure
+sh configure
+# Object Configuration
+for (( s=0; s<=17; s++ ))
+do
+scp swift_config ${servr[s]}:/root/
+ssh ${servr[s]}  chmod +x /root/swift_config
+ssh ${servr[s]}  sh /root/swift_config
+done
+# Create RING
+chmod +x ring
+sh ring
+scp ring_generate ring_build ring_distribute ob1:/etc/swift/
+ssh ob1 chmod +x  /etc/swift/ring_generate
+ssh ob1 chmod +x  /etc/swift/ring_build 
+ssh ob1 chmod +x  /etc/swift/ring_distribute
+ssh ob1 sh  /etc/swift/ring_build
+# Restart All swift node
+chmod +x restart
+ssh restart
+
+echo "Successfully Install & Configure !!"
+
+#scp /home/shafiq/swift_config/script${ip}.sh $servr:/root/
+#ssh $servr chmod +x /root/script${ip}.sh
+#ssh $servr sh /root/script${ip}.sh
+
+

@@ -1,0 +1,38 @@
+#!/bin/sh
+# RESTART SWIFT CLUSTER
+# *** ALL SERVER ARRAY************
+servr=(ac1 ac2 ac3 ac4 ac5 ob1 ob2 ob3 ob4 ob5 ob6 ob7 ob8 ob9 ob10 pro1 pro2 pro3)
+#*****************************************
+echo "Restarting Account & Container Servers"
+for(( a=0; a<=4; a++ ))
+do
+ssh ${servr[a]} systemctl restart rsyncd.service
+ssh ${servr[a]} systemctl status -l rsyncd.service
+ssh ${servr[a]} systemctl restart openstack-swift-account.service openstack-swift-account-auditor.service openstack-swift-account-reaper.service openstack-swift-account-replicator.service
+ssh ${servr[a]} systemctl status -l openstack-swift-account.service openstack-swift-account-auditor.service  openstack-swift-account-reaper.service openstack-swift-account-replicator.service
+ssh ${servr[a]} systemctl restart openstack-swift-container.service openstack-swift-container-auditor.service openstack-swift-container-replicator.service openstack-swift-container-updater.service
+ssh ${servr[a]} systemctl status -l openstack-swift-container.service openstack-swift-container-auditor.service openstack-swift-container-replicator.service openstack-swift-container-updater.service
+#
+done > swift_status
+cat swift_status
+#**************************************
+echo "Restarting Object Servers"
+for (( o=5; o<=14; o++ ))
+do
+ssh ${servr[o]} systemctl restart rsyncd.service
+ssh ${servr[o]} systemctl status -l rsyncd.service
+ssh ${servr[o]} systemctl restart openstack-swift-object.service openstack-swift-object-auditor.service openstack-swift-object-replicator.service openstack-swift-object-updater.service
+ssh ${servr[o]} systemctl status -l openstack-swift-object.service openstack-swift-object-auditor.service openstack-swift-object-replicator.service openstack-swift-object-updater.service
+#
+done >> swift_status
+cat swift_status
+#**************************************
+echo "Restarting Proxy Servers"
+for (( p=15; p<=17; p++ ))
+do
+ssh ${servr[p]} systemctl restart openstack-swift-proxy.service memcached.service
+ssh ${servr[p]} systemctl status -l openstack-swift-proxy.service memcached.service
+done >> swift_status
+cat swift_status
+echo "Successfully Restarted !"
+

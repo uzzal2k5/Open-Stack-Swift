@@ -1,0 +1,11 @@
+#!/bin/sh
+servr=(ac1 ac2 ac3 ac4 ac5 ob2 ob3 ob4 ob5 ob6 ob7 ob8 ob9 ob10 pro1 pro2 pro3)
+# Distribute ring file among the server. Ring file created on Object server1 [ob1]
+# This script will run into the opbect server 1 and distribute all ring file after ring build
+for(( i=0; i<17; i++ ))
+do
+# if there any ring filre present, you can remove uncommenting following command other wise it will dgone to backup automatically 
+#sh ${servr[i]} rm -rf /etc/swift/ *.ring.gz
+scp *.ring.gz ${servr[i]}:/etc/swift/
+ssh ${servr[i]} chown -R swift:swift /etc/swift
+done

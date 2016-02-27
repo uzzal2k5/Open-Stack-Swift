@@ -1,0 +1,9 @@
+#!/bin/sh
+# Account & Container Configure
+eth1_ip=$(ip addr list eth1 |grep "inet " |cut -d' ' -f6|cut -d/ -f1)
+# Modify account, container & object server 
+sed -i 's/# bind_ip = 0.0.0.0/bind_ip = '"${eth1_ip}"'/g' /etc/swift/account-server.conf
+sed -i 's/# bind_ip = 0.0.0.0/bind_ip = '"${eth1_ip}"'/g' /etc/swift/container-server.conf
+
+
+
